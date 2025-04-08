@@ -1,0 +1,33 @@
+{
+  "name": "maxxinke-web",
+  "version": "1.0.0",
+  "description": "麦克斯鑫科（山东）新型材料科技有限公司官网",
+  "scripts": {
+    "dev": "next dev -p 3001",
+    "build": "next build",
+    "start": "next start -p 3001",
+    "lint": "next lint"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@vercel/postgres": "^0.10.0",
+    "antd": "^5.0.0",
+    "framer-motion": "^10.0.0",
+    "next": "^14.0.0",
+    "react": "^18.0.0",
+    "react-countup": "^6.5.3",
+    "react-dom": "^18.0.0",
+    "react-intersection-observer": "^9.16.0",
+    "typescript": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "autoprefixer": "^10.0.0",
+    "postcss": "^8.0.0",
+    "tailwindcss": "^3.0.0"
+  }
+}
