@@ -73,9 +73,9 @@ const NewsDetailPage = ({ params }: { params: { id: string } }) => {
             </div>
             <div className="mb-6">
               <img
-                src={news.image}
+                src={news.image ? `${process.env.NEXT_PUBLIC_API_URL}${news.image}` : '/images/news-placeholder.jpg'}
                 alt={news.title}
-                className="w-full h-96 object-cover rounded-lg"
+                className="w-full h-auto rounded-lg shadow-lg"
               />
             </div>
             <div 

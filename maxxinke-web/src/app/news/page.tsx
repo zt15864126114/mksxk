@@ -37,9 +37,9 @@ const NewsPage = () => {
   const pageSize = 6
 
   const newsCategories = [
-    { id: 1, name: '公司动态', type: 'company', color: 'blue' },
-    { id: 2, name: '行业新闻', type: 'industry', color: 'green' },
-    { id: 3, name: '技术文章', type: 'tech', color: 'orange' },
+    { id: 1, name: '公司动态', type: '公司动态', color: 'blue' },
+    { id: 2, name: '行业新闻', type: '行业新闻', color: 'green' },
+    { id: 3, name: '技术文章', type: '技术文章', color: 'orange' },
   ]
 
   const fetchNews = async () => {
@@ -208,7 +208,7 @@ const NewsPage = () => {
                     <div className="h-48 overflow-hidden">
                       <div className="relative h-full w-full transform group-hover:scale-110 transition-transform duration-500">
                         <img
-                          src={news.image || '/images/news-placeholder.jpg'}
+                          src={news.image ? `${process.env.NEXT_PUBLIC_API_URL}${news.image}` : '/images/news-placeholder.jpg'}
                           alt={news.title}
                           className="w-full h-full object-cover"
                         />

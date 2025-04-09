@@ -386,8 +386,9 @@ const News: React.FC = () => {
             rules={[{ required: true, message: '请选择类型' }]}
           >
             <Select>
-              <Select.Option value="1">公司新闻</Select.Option>
-              <Select.Option value="2">行业动态</Select.Option>
+              <Select.Option value="1">公司动态</Select.Option>
+              <Select.Option value="2">行业新闻</Select.Option>
+              <Select.Option value="2">技术文章</Select.Option>
             </Select>
           </Form.Item>
 
