@@ -18,7 +18,7 @@ const ApplicationsPage = () => {
       title: '污水处理',
       description: '为各类污水处理厂提供专业解决方案',
       icon: <EnvironmentOutlined className="text-3xl" />,
-      bgImage: 'https://images.unsplash.com/photo-1516937941344-00b4e0337589?w=800&h=600&fit=crop',
+      bgImage: '/images/industry/1.jpg',
       features: [
         '工业废水处理',
         '生活污水处理',
@@ -32,7 +32,7 @@ const ApplicationsPage = () => {
       title: '城镇供水',
       description: '提供安全、可靠的供水解决方案',
       icon: <HomeOutlined className="text-3xl" />,
-      bgImage: 'https://images.unsplash.com/photo-1584824388174-7c69a307f710?w=800&h=600&fit=crop',
+      bgImage: '/images/industry/2.jpg',
       features: [
         '饮用水处理',
         '管网水质保障',
@@ -46,7 +46,7 @@ const ApplicationsPage = () => {
       title: '环保行业',
       description: '为环保工程提供专业支持',
       icon: <EnvironmentOutlined className="text-3xl" />,
-      bgImage: 'https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?w=800&h=600&fit=crop',
+      bgImage: '/images/industry/3.jpg',
       features: [
         '环境治理',
         '生态修复',
@@ -60,7 +60,7 @@ const ApplicationsPage = () => {
       title: '工业应用',
       description: '为各类工业企业提供水处理解决方案',
       icon: <ForkOutlined className="text-3xl" />,
-      bgImage: 'https://images.unsplash.com/photo-1565715101841-4e50c7eac76c?w=800&h=600&fit=crop',
+      bgImage: '/images/industry/4.jpg',
       features: [
         '电力行业',
         '石油化工',
