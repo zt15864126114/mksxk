@@ -8,8 +8,9 @@ export const getProducts = async (req: Request, res: Response) => {
     const pageSize = parseInt(req.query.pageSize as string) || 10;
     const category = req.query.category as string;
     const keyword = req.query.keyword as string;
+    const isAdmin = req.query.isAdmin === 'true';
 
-    const result = await productModel.findAll(page, pageSize, category, keyword);
+    const result = await productModel.findAll(page, pageSize, category, keyword, isAdmin);
 
     res.json({
       code: 200,
@@ -29,7 +30,8 @@ export const getProducts = async (req: Request, res: Response) => {
 export const getProduct = async (req: Request, res: Response) => {
   try {
     const id = parseInt(req.params.id);
-    const product = await productModel.findById(id);
+    const isAdmin = req.query.isAdmin === 'true';
+    const product = await productModel.findById(id, isAdmin);
 
     if (!product) {
       return res.status(404).json({
@@ -94,12 +96,11 @@ export const createProduct = async (req: Request, res: Response) => {
 export const updateProduct = async (req: Request, res: Response) => {
   try {
     const id = parseInt(req.params.id);
-    const { name, category, description, specification, application, image, sort } = req.body;
+    const { name, category, description, specification, application, image, sort, status } = req.body;
 
     console.log('Update product request body:', req.body);
-    console.log('Image path:', image);
 
-    const product = await productModel.findById(id);
+    const product = await productModel.findById(id, true);
     if (!product) {
       return res.status(404).json({
         code: 404,
@@ -114,8 +115,9 @@ export const updateProduct = async (req: Request, res: Response) => {
       description: description || product.description,
       specification: specification || product.specification,
       application: application || product.application,
-      image: image || product.image,  // 使用新的图片路径或保持原有图片
-      sort: sort !== undefined ? sort : product.sort
+      image: image || product.image,
+      sort: sort !== undefined ? sort : product.sort,
+      status: status !== undefined ? parseInt(status) : product.status
     };
 
     console.log('Update data:', updateData);
@@ -123,7 +125,7 @@ export const updateProduct = async (req: Request, res: Response) => {
     await productModel.update(id, updateData);
 
     // 验证更新是否成功
-    const updatedProduct = await productModel.findById(id);
+    const updatedProduct = await productModel.findById(id, true);
     console.log('Updated product:', updatedProduct);
 
     res.json({
@@ -145,7 +147,8 @@ export const deleteProduct = async (req: Request, res: Response) => {
   try {
     const id = parseInt(req.params.id);
 
-    const product = await productModel.findById(id);
+    // 检查产品是否存在
+    const product = await productModel.findById(id, true);
     if (!product) {
       return res.status(404).json({
         code: 404,
@@ -153,6 +156,7 @@ export const deleteProduct = async (req: Request, res: Response) => {
       });
     }
 
+    // 执行真实删除
     await productModel.remove(id);
 
     res.json({

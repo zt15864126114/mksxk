@@ -51,8 +51,15 @@ const ContactPage = () => {
 
       const data = await response.json();
       
-      if (data.success) {
-        message.success('您的留言已发送成功！我们会尽快与您联系。');
+      if (data.code === 200) {
+        message.success({
+          content: '留言提交成功！我们会尽快与您联系。',
+          duration: 3,
+          className: 'custom-message',
+          style: {
+            marginTop: '20vh',
+          },
+        });
         form.resetFields();
       } else {
         throw new Error(data.message || '提交失败');

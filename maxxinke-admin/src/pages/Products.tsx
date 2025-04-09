@@ -45,7 +45,11 @@ const Products: React.FC = () => {
     setLoading(true);
     try {
       const response = await request.get<{ code: number; message: string; data: ProductResponse }>('/api/products', {
-        params: { page, pageSize }
+        params: { 
+          page, 
+          pageSize,
+          isAdmin: true 
+        }
       });
       
       if (response.code === 200 && response.data) {

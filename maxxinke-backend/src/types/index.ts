@@ -18,6 +18,18 @@ export interface Product {
   sort: number;
   status: number;
   create_time: Date;
+  update_time: Date;
+}
+
+export interface ProductUpdate {
+  name?: string;
+  category?: string;
+  description?: string;
+  specification?: string;
+  application?: string;
+  image?: string;
+  sort?: number;
+  status?: number;
 }
 
 export interface News {
