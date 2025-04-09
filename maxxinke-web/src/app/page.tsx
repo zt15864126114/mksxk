@@ -6,11 +6,28 @@ import { motion } from 'framer-motion'
 import { ArrowRightOutlined, CheckCircleOutlined } from '@ant-design/icons'
 import { useInView } from 'react-intersection-observer'
 import CountUp from 'react-countup'
+import { message } from 'antd'
+import { API_ENDPOINTS } from '@/config/api'
+import Link from 'next/link'
+import Image from 'next/image'
+
+interface Product {
+  id: number
+  name: string
+  category: string
+  description: string
+  specification: string
+  application: string
+  image: string
+  sort: number
+  status: number
+}
 
 const HomePage = () => {
   const [activeSlide, setActiveSlide] = useState(0)
   const [mounted, setMounted] = useState(false)
   const router = useRouter()
+  const [featuredProducts, setFeaturedProducts] = useState<Product[]>([])
 
   const carouselItems = [
     {
@@ -28,7 +45,7 @@ const HomePage = () => {
       badge: '研发实力'
     },
     {
-      image: '/images/carousel/banner-industry.jpg.png',
+      image: '/images/carousel/new-town-water-supply.jpg',
       title: '优质工程案例',
       description: '服务多家企业，打造精品工程',
       link: '/applications',
@@ -106,6 +123,23 @@ const HomePage = () => {
       setActiveSlide((prev) => (prev + 1) % carouselItems.length)
     }, 5000)
     return () => clearInterval(interval)
+  }, [])
+
+  useEffect(() => {
+    const fetchFeaturedProducts = async () => {
+      try {
+        const response = await fetch(`${API_ENDPOINTS.products.list}?pageSize=4&sort=1`)
+        const data = await response.json()
+        
+        if (data.code === 200) {
+          setFeaturedProducts(data.data.list)
+        }
+      } catch (error) {
+        console.error('获取推荐产品失败:', error)
+      }
+    }
+
+    fetchFeaturedProducts()
   }, [])
 
   if (!mounted) {
@@ -261,71 +295,84 @@ const HomePage = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {products.map((product, index) => (
+            {featuredProducts.map((product, index) => (
               <motion.div
-                key={index}
+                key={product.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="group"
               >
-                <div className="relative bg-white rounded-[2rem] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 h-full transform hover:-translate-y-2">
-                  {/* 图片容器 */}
-                  <div className="aspect-w-4 aspect-h-3 overflow-hidden">
-                    <img
-                      src={product.image}
-                      alt={product.title}
-                      className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  </div>
-                  
-                  {/* 内容区域 */}
-                  <div className="relative p-8">
-                    {/* 装饰元素 */}
-                    <div className="absolute -top-10 right-8">
-                      <div className="relative">
-                        <div className="absolute inset-0 bg-blue-500 blur-lg opacity-20 group-hover:opacity-40 transition-opacity" />
-                        <div className="relative bg-gradient-to-br from-blue-500 to-blue-600 w-20 h-20 rounded-2xl -rotate-12 group-hover:rotate-0 transition-all duration-300 shadow-lg flex items-center justify-center">
-                          <span className="text-3xl text-white font-bold">+</span>
-                        </div>
+                <Link href={`/products/${product.id}`}>
+                  <div className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-shadow">
+                    {product.image && (
+                      <div className="relative w-12 h-12 mb-4">
+                        <Image
+                          src={`${API_ENDPOINTS.baseUrl}${product.image}`}
+                          alt={product.name}
+                          width={48}
+                          height={48}
+                          className="object-contain"
+                        />
                       </div>
-                    </div>
-
-                    {/* 标题和描述 */}
-                    <h3 className="text-2xl font-bold mb-4 text-gray-900 group-hover:text-blue-600 transition-colors">
-                      {product.title}
+                    )}
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">
+                      {product.name}
                     </h3>
-                    <p className="text-gray-600 mb-6 line-clamp-2 text-base">
+                    <p className="text-gray-600 mb-4">
                       {product.description}
                     </p>
-
-                    {/* 特性列表 */}
-                    <ul className="space-y-3 mb-8">
-                      {product.features.map((feature, i) => (
-                        <li key={i} className="flex items-center text-gray-600 group/item">
-                          <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-50 group-hover:bg-blue-100 flex items-center justify-center mr-3 transition-colors">
-                            <CheckCircleOutlined className="text-blue-500 text-sm" />
-                          </span>
-                          <span className="text-sm group-hover/item:text-blue-600 transition-colors">{feature}</span>
+                    <ul className="space-y-2">
+                      {product.specification.split('\n').slice(0, 3).map((feature, i) => (
+                        <li key={i} className="flex items-center text-gray-600">
+                          <svg
+                            className="w-4 h-4 text-blue-500 mr-2"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M5 13l4 4L19 7"
+                            />
+                          </svg>
+                          {feature.split(':')[0]}
                         </li>
                       ))}
                     </ul>
-
-                    {/* 按钮 */}
-                    <button
-                      onClick={() => router.push(product.link)}
-                      className="w-full py-4 px-6 bg-gradient-to-r from-gray-50 to-gray-100 text-gray-700 rounded-xl flex items-center justify-between group-hover:from-blue-500 group-hover:to-blue-600 group-hover:text-white transition-all duration-300"
-                    >
-                      <span className="font-medium">了解更多</span>
-                      <ArrowRightOutlined className="transform group-hover:translate-x-1 transition-transform" />
-                    </button>
+                    <div className="mt-4">
+                      <span className="text-blue-600 hover:text-blue-700 inline-flex items-center">
+                        了解更多
+                        <svg
+                          className="w-4 h-4 ml-1"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M9 5l7 7-7 7"
+                          />
+                        </svg>
+                      </span>
+                    </div>
                   </div>
-                </div>
+                </Link>
               </motion.div>
             ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <Link
+              href="/products"
+              className="inline-flex items-center justify-center px-8 py-3 text-base font-medium text-white bg-blue-600 border border-transparent rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              查看更多产品
+            </Link>
           </div>
         </div>
       </div>
