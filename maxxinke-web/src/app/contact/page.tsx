@@ -148,28 +148,6 @@ const ContactPage = () => {
                 </div>
               </div>
             </div>
-
-            {/* 关注我们 */}
-            <div className="bg-white rounded-2xl shadow-lg p-8">
-              <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                <WechatOutlined className="text-green-500" />
-                关注我们
-              </h2>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="text-center">
-                  <div className="w-full aspect-square bg-gray-50 rounded-lg shadow-md mb-2 flex items-center justify-center">
-                    <span className="text-gray-400">公众号二维码</span>
-                  </div>
-                  <p className="text-sm text-gray-600">官方公众号</p>
-                </div>
-                <div className="text-center">
-                  <div className="w-full aspect-square bg-gray-50 rounded-lg shadow-md mb-2 flex items-center justify-center">
-                    <span className="text-gray-400">小程序二维码</span>
-                  </div>
-                  <p className="text-sm text-gray-600">官方小程序</p>
-                </div>
-              </div>
-            </div>
           </motion.div>
 
           {/* 留言表单 */}
@@ -283,30 +261,6 @@ const ContactPage = () => {
             </div>
           </motion.div>
         </div>
-
-        {/* 地图 */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-8"
-        >
-          <div className="bg-white rounded-2xl shadow-lg p-8">
-            <div className="flex items-center gap-4 mb-8">
-              <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center text-blue-500">
-                <GlobalOutlined className="text-2xl" />
-              </div>
-              <div>
-                <h2 className="text-2xl font-bold">公司位置</h2>
-                <p className="text-gray-600">欢迎来访参观交流</p>
-              </div>
-            </div>
-            <div className="w-full h-[400px] bg-gray-50 rounded-xl flex items-center justify-center">
-              <span className="text-gray-400">地图区域</span>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </div>
   )
