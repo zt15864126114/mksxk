@@ -45,17 +45,23 @@ const Footer = () => {
           <div>
             <h3 className="text-xl font-bold mb-4">联系我们</h3>
             <ul className="space-y-2">
-              <li className="flex items-center text-gray-400">
-                <PhoneOutlined className="mr-2" />
-                <span>联系电话</span>
+              <li>
+                <Link href="/contact" className="flex items-center text-gray-400 hover:text-white group">
+                  <PhoneOutlined className="mr-2 group-hover:text-blue-400 transition-colors" />
+                  <span>联系电话</span>
+                </Link>
               </li>
-              <li className="flex items-center text-gray-400">
-                <MailOutlined className="mr-2" />
-                <span>电子邮箱</span>
+              <li>
+                <Link href="/contact" className="flex items-center text-gray-400 hover:text-white group">
+                  <MailOutlined className="mr-2 group-hover:text-blue-400 transition-colors" />
+                  <span>电子邮箱</span>
+                </Link>
               </li>
-              <li className="flex items-center text-gray-400">
-                <EnvironmentOutlined className="mr-2" />
-                <span>公司地址</span>
+              <li>
+                <Link href="/contact" className="flex items-center text-gray-400 hover:text-white group">
+                  <EnvironmentOutlined className="mr-2 group-hover:text-blue-400 transition-colors" />
+                  <span>公司地址</span>
+                </Link>
               </li>
             </ul>
           </div>
