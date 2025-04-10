@@ -65,13 +65,8 @@ const Footer = () => {
             <h3 className="text-xl font-bold mb-4">产品中心</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/products/water-treatment" className="text-gray-400 hover:text-white">
+                <Link href="/products" className="text-gray-400 hover:text-white">
                   水处理产品
-                </Link>
-              </li>
-              <li>
-                <Link href="/products/concrete" className="text-gray-400 hover:text-white">
-                  水泥外加剂
                 </Link>
               </li>
             </ul>
