@@ -2,7 +2,7 @@ import { Router } from 'express';
 import adminRouter from './admin';
 import productRouter from './product';
 import newsRouter from './news';
-import messageRouter from './message';
+import messageRouter from './messages';
 
 const router = Router();
 

@@ -90,8 +90,8 @@ const Products: React.FC = () => {
       uid: `-${index}`,
       name: `image-${index}.png`,
       status: 'done' as const,
-      url: url.startsWith('http') ? url : `http://localhost:3000${url}`,
-      thumbUrl: url.startsWith('http') ? url : `http://localhost:3000${url}`,
+      url: url.startsWith('http') ? url : `http://localhost:3002${url}`,
+      thumbUrl: url.startsWith('http') ? url : `http://localhost:3002${url}`,
     }));
     setFileList(initialFileList);
     form.setFieldsValue({

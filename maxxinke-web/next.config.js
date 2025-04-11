@@ -4,7 +4,7 @@ const nextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: 'http://localhost:3000/api/:path*' // 修改为3000端口
+        destination: 'http://localhost:3002/api/:path*' // 修改为3002端口
       }
     ]
   },
